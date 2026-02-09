@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Learning Physics-Guided Residual Dynamics (PReD) for deformable object simulation">
+  <meta name="keywords" content="Deformable Object Simulation, Residual Dynamics, Robotics, Physics-Guided Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning Physics-Guided Residual Dynamics for Deformable Object Simulation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  />
+  <script
+    defer
+    src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+  ></script>
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-fullhd">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Learning Physics-Guided Residual Dynamics for
+            Deformable Object Simulation</h1>
+          <!-- <h2 class="subtitle is-3 conference-name">Preprint</h2> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <b>Shivansh Patel</b><sup>1,2</sup>,
+              <b>Kaifeng Zhang</b><sup>2,3</sup>,
+              <b>Sanjay Pokkali</b><sup>1</sup>,
+              <b>Svetlana Lazebnik</b><sup>1</sup>,
+              <b>Yunzhu Li</b><sup>2,3</sup>
+            </span>
+          </div>
+
+          <div class="is-size-6 affiliation">
+            <sup>1</sup> University of Illinois Urbana-Champaign&nbsp;&nbsp;
+            <sup>2</sup> SceniX Inc.&nbsp;&nbsp;
+            <sup>3</sup> Columbia University
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- TODO: replace with real links -->
+              <span class="link-block">
+                <a href="static/pdf/paper.pdf"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-widescreen">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered is-centered">
+          <video
+            id="teaser"
+            muted
+            autoplay
+            controls
+            style="max-width: 900px; width: 100%;"
+            height="100%">
+            <source src="static/videos/teaser.mp4" type="video/mp4">
+          </video>
+          </br>
+        </div>
+        <br>
+        <h2 class="subtitle has-text-centered">
+          Physics-Guided Residual Dynamics (PReD) combines a spring-mass simulator with a learned
+          residual model for stable and accurate deformable object simulation.
+        </h2>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<script>
+  const video = document.getElementById("teaser");
+  if (video) {
+    video.addEventListener("ended", () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+
+    window.addEventListener("load", () => {
+      video.play().catch(error => {
+        console.error("Auto-play was blocked:", error);
+      });
+    });
+  }
+</script>
+
+<div class="container is-max-widescreen">
+<div class="columns is-centered has-text-centered">
+  <div class="column is-four-fifths">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>Simulating deformable objects is essential for a wide range of robotic manipulation applications. Yet, accurately predicting their dynamics remains challenging. Physics-based simulations are interpretable, but they require a known model class and precise identification of physical parameters, which are often difficult to obtain. Learning-based approaches can be more expressive in capturing dynamics, but they often generalize poorly outside the training distribution, require substantial training data, and lack physical consistency. We propose Physics-Guided Residual Dynamics (PReD), a hybrid simulation framework that combines an optimizable spring–mass simulator as a backbone with a learned neural network that predicts residual corrections to compensate for discrepancies between physics-based predictions and reality. Our velocity-based formulation ensures stable simulation, while a sliding-window transformer captures temporal dependencies. We validate our approach on real-world deformable objects, demonstrating that PReD outperforms both purely physics-based simulators and learning-based methods. We further demonstrate the practical utility of our framework in action-conditioned 3D video prediction using 3D Gaussian Splatting and in Model Predictive Control for manipulation planning on challenging tasks such as cable rerouting, where purely physics-based simulation fails.</p>
+      </p>
+    </div>
+  </div>
+</div>
+
+<section class="hero is-light is-small">
+</section>
+
+<hr class="rounded">
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <img src="static/images/overview.svg" class="method-image" style="max-width: 100%;" />
+    </div>
+    <p class="content has-text-justified">
+      We combine a tuned spring-mass simulator with a learned residual dynamics network. The simulator predicts the next state from current observations and actions, while the network predicts per-particle velocity corrections that are time-integrated to obtain final positions. This hybrid design leverages physics priors for improved generalization while capturing complex phenomena that are challenging to model analytically.
+    </p>
+  </div>
+</section>
+
+<hr class="rounded">
+<div class="rows">
+  <h2 class="title is-3">Method</h2>
+
+  <h3 class="title is-4">Physics Backbone</h3>
+  <p class="content has-text-justified">
+    We use a spring-mass simulator as a backbone. The simulator
+    includes various parameters like stiffness, damping, etc. This backbone is optimized using CMA-ES optimization.
+  </p>
+
+  <h3 class="title is-4">Residual Dynamics</h3>
+  <p class="content has-text-justified">
+    The neural network predicts per-particle residual velocities, which are added to the simulator
+    output and integrated to compute corrected positions. Training uses multi-step rollout to reduce
+    error accumulation and improve stability over long horizons.
+  </p>
+
+  <h3 class="title is-4">Network Architecture</h3>
+  <p class="content has-text-justified">
+    We use a Point Transformer V3 encoder, a NeRF-style decoder to predict residual velocities, and a
+    sliding-window transformer with gating to refine corrections using temporal history.
+  </p>
+
+  <div style="text-align: center;">
+    <img src="static/images/neural_network.svg" class="method-image" style="max-width: 100%;" />
+  </div>
+</div>
+
+<hr class="rounded">
+<div class="rows">
+  <h2 class="title is-3">Results</h2>
+  <p class="content has-text-justified">
+    PReD achieves the lowest error across all tracking metrics and improves visual quality in
+    action-conditioned video prediction. Qualitative comparisons show improved structural consistency
+    and more realistic deformations across all objects.
+  </p>
+</div>
+
+<hr class="rounded">
+<div class="rows">
+  <h2 class="title is-3">MPC with PReD</h2>
+  <p class="content has-text-justified">
+    PReD supports MPPI for manipulation planning, achieving 8/10 cable rerouting successes versus 2/10 for the physics-only baseline.
+  </p>
+  <div style="text-align: center;">
+    <video controls style="max-width: 100%; border-radius: 8px;">
+      <source src="static/videos/mppi.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <hr class="rounded">
+  <h2 class="title is-3">Interactive Simulation with PReD and 3DGS</h2>
+  <p class="content has-text-justified">
+    PReD enables action-conditioned 3D video prediction using 3D Gaussian Splatting for interactive simulation.
+  </p>
+  <div style="text-align: center;">
+    <video
+      id="interactive-video"
+      controls
+      preload="metadata"
+      playsinline
+      style="max-width: 100%; width: 100%; height: auto; border-radius: 8px;">
+      <source src="static/videos/interactive-h264.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+<!-- <hr class="rounded">
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre>
+@article{pred2026,
+  title={Learning Physics-Guided Residual Dynamics for Deformable Object Simulation},
+  author={Anonymous Authors},
+  journal={arXiv preprint},
+  year={2026}
+}
+    </pre>
+  </div>
+</section> -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <p>
+            Website template borrowed from <a href="https://nerfies.github.io">Nerfies</a> and
+            <a href="https://rekep-robot.github.io">ReKep</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
