@@ -44,11 +44,11 @@
           <!-- <h2 class="subtitle is-3 conference-name">Preprint</h2> -->
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <b>Shivansh Patel</b><sup>1,2</sup>,
-              <b>Kaifeng Zhang</b><sup>2,3</sup>,
-              <b>Sanjay Pokkali</b><sup>1</sup>,
-              <b>Svetlana Lazebnik</b><sup>1</sup>,
-              <b>Yunzhu Li</b><sup>2,3</sup>
+              <a href="https://shivanshpatel35.github.io/"><b>Shivansh Patel</b></a><sup>1,2</sup>,
+              <a href="https://kywind.github.io/"><b>Kaifeng Zhang</b></a><sup>2,3*</sup>,
+              <a href="https://www.linkedin.com/in/sanjaypokkali/"><b>Sanjay Pokkali</b></a><sup>1*</sup>,
+              <a href="https://slazebni.cs.illinois.edu/"><b>Svetlana Lazebnik</b></a><sup>1</sup>,
+              <a href="https://yunzhuli.github.io/"><b>Yunzhu Li</b></a><sup>2,3</sup>
             </span>
           </div>
 
@@ -56,6 +56,10 @@
             <sup>1</sup> University of Illinois Urbana-Champaign&nbsp;&nbsp;
             <sup>2</sup> SceniX Inc.&nbsp;&nbsp;
             <sup>3</sup> Columbia University
+          </div>
+
+          <div class="affiliation-note">
+            <sup>*</sup> indicates equal contributions
           </div>
 
           <div class="column has-text-centered">
@@ -186,26 +190,29 @@
 
   <h3 class="title is-4">Physics Backbone</h3>
   <p class="content has-text-justified">
-    We use a spring-mass simulator as a backbone. The simulator
-    includes various parameters like stiffness, damping, etc. This backbone is optimized using CMA-ES optimization.
+    We use a spring-mass simulator as a backbone. The simulator includes parameters such as stiffness, damping, and friction,
+    which are tuned to match real-world trajectories via black-box optimization.    
   </p>
+  <div style="text-align: center;">
+    <img src="static/images/physics_backbone.svg" class="method-image" style="max-width: 60%;" />
+  </div>
 
+  <br>
+  <br>
+  <br>
   <h3 class="title is-4">Residual Dynamics</h3>
   <p class="content has-text-justified">
-    The neural network predicts per-particle residual velocities, which are added to the simulator
-    output and integrated to compute corrected positions. Training uses multi-step rollout to reduce
-    error accumulation and improve stability over long horizons.
+    While the optimized physics backbone captures the broad dynamics, it cannot fully model the objects. A neural
+    network bridges this gap by predicting per-particle residual velocities, which
+    are added to the simulator output and integrated to compute corrected
+    positions. It consists of a Point Transformer V3 encoder, a NeRF-style decoder
+    for initial velocity estimates, and a sliding-window transformer with gating to
+    refine corrections using temporal history.
   </p>
-
-  <h3 class="title is-4">Network Architecture</h3>
-  <p class="content has-text-justified">
-    We use a Point Transformer V3 encoder, a NeRF-style decoder to predict residual velocities, and a
-    sliding-window transformer with gating to refine corrections using temporal history.
-  </p>
-
   <div style="text-align: center;">
-    <img src="static/images/neural_network.svg" class="method-image" style="max-width: 100%;" />
+    <img src="static/images/neural_network.svg" class="method-image" style="max-width: 60%;" />
   </div>
+
 </div>
 
 <hr class="rounded">
@@ -217,7 +224,7 @@
     and more realistic deformations across all objects.
   </p>
   <div style="text-align: center;">
-    <video controls style="max-width: 100%; border-radius: 8px;">
+    <video controls style="max-width: 70%; border-radius: 8px;">
       <source src="static/videos/results.mp4" type="video/mp4">
     </video>
   </div>
@@ -230,7 +237,7 @@
     PReD supports MPPI planning for manipulation planning, achieving 8/10 cable rerouting successes versus 2/10 for the physics-only baseline.
   </p>
   <div style="text-align: center;">
-    <video controls style="max-width: 100%; border-radius: 8px;">
+    <video controls style="max-width: 70%; border-radius: 8px;">
       <source src="static/videos/mppi.mp4" type="video/mp4">
     </video>
   </div>
@@ -246,7 +253,7 @@
       controls
       preload="metadata"
       playsinline
-      style="max-width: 100%; width: 100%; height: auto; border-radius: 8px;">
+      style="max-width: 70%; width: 100%; height: auto; border-radius: 8px;">
       <source src="static/videos/interactive-h264.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
